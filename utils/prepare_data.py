@@ -1,10 +1,11 @@
-import tensorflow as tf
-from PIL import Image
+import numpy as np
+from keras.preprocessing import image
+
 
 def prepare_image(image_path):
-    img = Image.open(image_path).resize((224, 224))
-    img_array = tf.keras.utils.img_to_array(img)
-    img_array = tf.expand_dims(img_array, 0)  # Create batch axis
+    img = image.load_img(image_path, target_size=(256, 256))
+    img = image.img_to_array(img)
+    img = np.expand_dims(img, 0)
+    # img = img.reshape(1, 256, 256, 3)
 
-
-    return img_array
+    return img / 255
